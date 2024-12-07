@@ -18,18 +18,18 @@ class _FactHistoryPageState extends State<FactHistoryPage> {
       body: BlocBuilder<CatBloc, CatState>(
         buildWhen: (previous, current) => current is CatFactHistoryLoaded,
         builder: (context, state) {
-          if (state is CatLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is CatFactHistoryLoaded) {
-            return ListView.builder(
-              itemCount: state.facts.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.facts[index].text),
-                  subtitle: Text('Date: ${state.facts[index].deleted}'),
-                );
-              },
-            );
+          if (state is CatFactHistoryLoaded) {
+            return state.facts.isNotEmpty
+                ? ListView.builder(
+                    itemCount: state.facts.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(state.facts[index].text),
+                        subtitle: Text('Date: ${state.facts[index].deleted}'),
+                      );
+                    },
+                  )
+                : const Center(child: Text('No facts in history'));
           } else {
             return const Center(child: Text('Error loading fact history'));
           }

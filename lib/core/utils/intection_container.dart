@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../data/data_remote_source/cat_data_remote_source.dart';
+import '../../data/model/fact_model.dart';
 import '../../domain/repositories/cat_repository.dart';
 import '../../presentation/bloc/cat_bloc.dart';
 import 'hive_service.dart';
@@ -18,6 +19,7 @@ class InjectionContainer {
   Future<void> initDependencies() async {
     final dio = Dio();
     await Hive.initFlutter();
+    Hive.registerAdapter(FactModelAdapter());
 
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
 

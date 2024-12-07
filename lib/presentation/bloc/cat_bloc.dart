@@ -28,7 +28,6 @@ class CatBloc extends Bloc<CatEvent, CatState> {
   }
 
   Future<void> _getCatFactHistory(GetCatFactHistory event, Emitter<CatState> emit) async {
-    emit(CatLoading());
     try {
       final facts = await HiveService().getAllFacts();
       emit(CatFactHistoryLoaded(facts));

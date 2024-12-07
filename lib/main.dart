@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/utils/intection_container.dart';
 
-void main() {
-  InjectionContainer.instance.initDependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await InjectionContainer.instance.initDependencies();
   runApp(const MyApp());
 }
 
