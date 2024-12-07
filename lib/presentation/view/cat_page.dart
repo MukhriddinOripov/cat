@@ -4,20 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/cat_bloc.dart';
 import 'fact_history_page.dart';
 
-class CatPage extends StatefulWidget {
+class CatPage extends StatelessWidget {
   const CatPage({super.key});
 
-  @override
-  State<CatPage> createState() => _CatPageState();
-}
-
-class _CatPageState extends State<CatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Cat Facts')),
       body: BlocBuilder<CatBloc, CatState>(
-        buildWhen: (previous, current) => current is CatLoaded || current is CatLoading,
+        buildWhen: (previous, current) => current is CatLoaded || current is CatLoading || current is CatError,
         builder: (context, state) {
           if (state is CatLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -30,7 +25,7 @@ class _CatPageState extends State<CatPage> {
                   const SizedBox(height: 20),
                   Text(state.fact.text),
                   const SizedBox(height: 10),
-                  Text('Date: ${state.fact.deleted}'),
+                  Text('Date: ${state.fact.updatedAt}'),
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () => context.read<CatBloc>().add(GetCatFact()),

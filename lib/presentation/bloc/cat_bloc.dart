@@ -23,6 +23,7 @@ class CatBloc extends Bloc<CatEvent, CatState> {
       HiveService().addFact(fact);
       emit(CatLoaded(fact));
     } catch (e) {
+      print('Error: $e');
       emit(CatError('Failed to fetch cat fact'));
     }
   }
