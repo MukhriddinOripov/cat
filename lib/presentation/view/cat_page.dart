@@ -24,8 +24,8 @@ class _CatPageState extends State<CatPage> {
           } else if (state is CatLoaded) {
             return Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 20),
                   Image.network(Endpoint.getRandomImage, height: 200, width: 200),
                   const SizedBox(height: 20),
                   Text(state.fact.text),
